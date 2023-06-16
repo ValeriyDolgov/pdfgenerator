@@ -1,0 +1,54 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <style th:inline="text">
+        @page {
+            size: 1920px 1440px;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url(http://192.168.8.208/files/cert_templates/java_template_bg.jpg); //Дергать в bg Картинку через абсолютный путь
+        background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        img {
+            width: 1px;
+            height: 1px;
+        }
+
+        .student-name {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+        }
+    </style>
+
+</head>
+<body>
+<div style="text-align: center; color: white">
+    <!--<div th:style="'background-image: url(' + @{classpath:static/images/java_template_bg.jpg} + '); height: 100%; width:100%;'">-->
+    <!--    <img th:src="@{classpath:static/images/java_template_bg.jpg}"/>-->
+
+    <span th:text="${to} + ' courses'"></span>
+    <p>Year 2023</p>
+    <span class="student-name" th:text="'Congratulation, ' + ${student_name} + '! You have been successfully completed course'"></span>
+    <u th:text="${course_name}"></u>
+    <p>
+    <div>
+        <span th:text="'Mentor ' + ${mentor_name} + '!'"></span>
+        <span th:text="'CEO: Antonov S.'"></span>
+    </div>
+    </p>
+    <span th:text="'Issued data of certificate ' + ${issued_date} + '!'"></span>
+    <p>
+        <span th:text="'Verification code ' + ${verification_code}"></span>
+    </p>
+</div>
+</body>
+</html>

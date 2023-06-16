@@ -1,0 +1,127 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <style th:inline="text">
+        @page {
+            size: 1920px 1440px;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url(http://192.168.8.208/files/cert_templates/java_template_bg.jpg);
+        / / Дергать в bg Картинку через абсолютный путь background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        img {
+            width: 1px;
+            height: 1px;
+        }
+
+        .company-name {
+            text-align: center;
+            color: #D9AF59;
+            font-size: 70px;
+            position: absolute;
+            margin-top: 4%;
+            left: 44%;
+        }
+
+        .student-name {
+            text-align: center;
+            color: #D9AF59;
+            font-size: 70px;
+            position: absolute;
+            margin-top: 31%;
+            /*margin-left: 400px;*/
+            /*top: 250%;*/
+            left: 38%;
+        }
+
+        .course-completing {
+            text-align: center;
+            color: #D9AF59;
+            font-size: 50px;
+            position: absolute;
+            margin-top: 36%;
+            left: 29%;
+        }
+
+        .course-description {
+            text-align: center;
+            color: #D9AF59;
+            font-size: 50px;
+            position: absolute;
+            margin-top: 40%;
+            /*margin-left: 400px;*/
+            /*top: 250%;*/
+            left: 34%;
+        }
+
+        .mentor-name {
+            text-align: center;
+            color: #D9AF59;
+            font-size: 30px;
+            position: absolute;
+            margin-top: 44%;
+            left: 38%;
+        }
+
+        .issued-date {
+            text-align: left;
+            color: #D9AF59;
+            font-size: 50px;
+            position: absolute;
+            margin-top: 56%;
+            left: 20%;
+        }
+
+        .signature {
+            text-align: left;
+            color: #D9AF59;
+            font-size: 50px;
+            position: absolute;
+            margin-top: 56%;
+            right: 20%;
+        }
+    </style>
+
+</head>
+<body>
+<div>
+    <!--<div th:style="'background-image: url(' + @{classpath:static/images/java_template_bg.jpg} + '); height: 100%; width:100%;'">-->
+    <!--    <img th:src="@{classpath:static/images/java_template_bg.jpg}"/>-->
+
+    <div class="company-name">
+        <span th:text="${company_name}"></span>
+    </div>
+    <div class="student-name">
+        <span th:text="${student_name}"></span>
+    </div>
+    <div class="course-completing">
+        <span>has successfully completing course</span>
+    </div>
+    <div class="course-description">
+        <u th:text="${course_name}"></u>
+    </div>
+    <div class="mentor-name">
+        Taught by <span th:text="${mentor_name}"></span>
+    </div>
+    <div>
+        <div class="issued-date">
+            <span th:text="${issued_date}"></span>
+        </div>
+        <!--        <span th:text="'Mentor ' + ${mentor_name} + '!'"></span>-->
+        <div class="signature">
+            <span th:text="'Antonov S.'"></span>
+        </div>
+    </div>
+    <div><span th:text="'Verification code ' + ${verification_code}"></span></div>
+</div>
+</body>
+</html>
