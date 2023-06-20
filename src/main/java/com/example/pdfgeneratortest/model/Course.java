@@ -11,4 +11,6 @@ public class Course {
     private Long id;
     private String name;
     private User mentor;
+    private int numberOfCompletedTests;
+    private int numberOfAllTests;
 }

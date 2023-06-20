@@ -1,54 +1,142 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <style th:inline="text">
-        @page {
-            size: 1920px 1440px;
-        }
-        body {
-            font-family: Arial, sans-serif;
-            background-image: url(http://192.168.8.208/files/cert_templates/java_template_bg.jpg); //Дергать в bg Картинку через абсолютный путь
-        background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            width: 100%;
-            height: 100%;
-            margin: 0;
-            padding: 10px;
-            box-sizing: border-box;
-        }
+<!--    <style th:inline="text">-->
+<!--        @page {-->
+<!--            size: 1920px 1440px;-->
+<!--        }-->
 
-        img {
-            width: 1px;
-            height: 1px;
-        }
+<!--        body {-->
+<!--            font-family: Arial, sans-serif;-->
+<!--            background-image: url(http://192.168.8.208/files/cert_templates/java_template_bg.jpg);-->
+<!--            background-size: cover;-->
+<!--            background-position: center;-->
+<!--            background-repeat: no-repeat;-->
+<!--            width: 100%;-->
+<!--            height: 100%;-->
+<!--            margin: 0;-->
+<!--            padding: 10px;-->
+<!--            box-sizing: border-box;-->
+<!--        }-->
 
-        .student-name {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-        }
-    </style>
+<!--        img {-->
+<!--            display: block;-->
+<!--        }-->
+
+<!--        .company-name {-->
+<!--            text-align: center;-->
+<!--            color: #D9AF58;-->
+<!--            font-style: italic;-->
+<!--            font-size: 70px;-->
+<!--            font-weight: 100;-->
+<!--            position: absolute;-->
+<!--            margin-top: 5%;-->
+<!--            left: 44%;-->
+<!--        }-->
+
+<!--        .student-name {-->
+<!--            text-align: center;-->
+<!--            color: #D9AF58;-->
+<!--            font-family: "Times New Roman", Times, serif;-->
+<!--            font-size: 70px;-->
+<!--            font-weight: 100;-->
+<!--            position: absolute;-->
+<!--            margin-top: 31%;-->
+<!--            left: 38.5%;-->
+<!--        }-->
+
+<!--        .course-completing {-->
+<!--            text-align: center;-->
+<!--            color: #D9AF58;-->
+<!--            font-family: "Times New Roman", Times, serif;-->
+<!--            font-weight: 100;-->
+<!--            font-size: 51px;-->
+<!--            position: absolute;-->
+<!--            margin-top: 36%;-->
+<!--            left: 30%;-->
+<!--        }-->
+
+<!--        .course-description {-->
+<!--            text-align: center;-->
+<!--            color: #D9AF58;-->
+<!--            font-family: "Times New Roman", Times, serif;-->
+<!--            font-size: 50px;-->
+<!--            font-weight: 100;-->
+<!--            position: absolute;-->
+<!--            margin-top: 40%;-->
+<!--            left: 35%;-->
+<!--        }-->
+
+<!--        .mentor-name {-->
+<!--            text-align: center;-->
+<!--            color: #D9AF58;-->
+<!--            font-family: "Times New Roman", Times, serif;-->
+<!--            font-size: 30px;-->
+<!--            font-weight: 100;-->
+<!--            position: absolute;-->
+<!--            margin-top: 44%;-->
+<!--            left: 39%;-->
+<!--        }-->
+
+<!--        .verification-code {-->
+<!--            text-align: center;-->
+<!--            color: #D9AF58;-->
+<!--            font-size: 25px;-->
+<!--            font-weight: 100;-->
+<!--            position: absolute;-->
+<!--            margin-top: 46%;-->
+<!--            left: 34.5%;-->
+<!--        }-->
+
+<!--        .issued-date {-->
+<!--            text-align: left;-->
+<!--            color: #D9AF58;-->
+<!--            font-size: 50px;-->
+<!--            font-weight: 100;-->
+<!--            position: absolute;-->
+<!--            margin-top: 55%;-->
+<!--            left: 21.1%;-->
+<!--        }-->
+
+<!--        .signature {-->
+<!--            text-align: left;-->
+<!--            color: #D9AF58;-->
+<!--            font-size: 50px;-->
+<!--            font-weight: 100;-->
+<!--            position: absolute;-->
+<!--            margin-top: 55%;-->
+<!--            right: 21.5%;-->
+<!--        }-->
+<!--    </style>-->
 
 </head>
 <body>
-<div style="text-align: center; color: white">
-    <!--<div th:style="'background-image: url(' + @{classpath:static/images/java_template_bg.jpg} + '); height: 100%; width:100%;'">-->
-    <!--    <img th:src="@{classpath:static/images/java_template_bg.jpg}"/>-->
-
-    <span th:text="${to} + ' courses'"></span>
-    <p>Year 2023</p>
-    <span class="student-name" th:text="'Congratulation, ' + ${student_name} + '! You have been successfully completed course'"></span>
-    <u th:text="${course_name}"></u>
-    <p>
-    <div>
-        <span th:text="'Mentor ' + ${mentor_name} + '!'"></span>
-        <span th:text="'CEO: Antonov S.'"></span>
-    </div>
-    </p>
-    <span th:text="'Issued data of certificate ' + ${issued_date} + '!'"></span>
-    <p>
-        <span th:text="'Verification code ' + ${verification_code}"></span>
-    </p>
-</div>
+<!--<div>-->
+<!--    <div class="company-name">-->
+<!--        <span th:text="${company_name}"></span>-->
+<!--    </div>-->
+<!--    <div class="student-name">-->
+<!--        <span th:text="${student_name}"></span>-->
+<!--    </div>-->
+<!--    <div class="course-completing">-->
+<!--        <span>has successfully completing course</span>-->
+<!--    </div>-->
+<!--    <div class="course-description">-->
+<!--        <u th:text="${course_name}"></u>-->
+<!--    </div>-->
+<!--    <div class="mentor-name">-->
+<!--        Taught by <span th:text="${mentor_name}"></span>-->
+<!--    </div>-->
+<!--    <div class="verification-code">-->
+<!--        Verification code: <span th:text="${verification_code}"></span>-->
+<!--    </div>-->
+<!--    <div>-->
+<!--        <div class="issued-date">-->
+<!--            <span th:text="${issued_date}"></span>-->
+<!--        </div>-->
+<!--        <div class="signature">-->
+<!--            <span th:text="'Antonov S.'"></span>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
 </body>
 </html>

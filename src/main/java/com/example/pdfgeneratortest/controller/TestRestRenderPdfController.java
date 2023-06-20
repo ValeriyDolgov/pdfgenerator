@@ -1,9 +1,8 @@
 package com.example.pdfgeneratortest.controller;
 
 import com.example.pdfgeneratortest.controller.dto.AppError;
-import com.example.pdfgeneratortest.service.CertificateService;
+import com.example.pdfgeneratortest.service.PdfCertificateService;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,15 +14,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RequestMapping("/certificate")
 public class TestRestRenderPdfController {
-    private final CertificateService certificateService;
+    private final PdfCertificateService certificateService;
 
     @GetMapping("/generate")
-    public ResponseEntity<?> generatePdf() {
-        String verificationCode = RandomStringUtils.random(25, true, true);
+    // скорее всего из URI получать имя курса, далее делать поиск по нему и по getAuthentication
+    public ResponseEntity<?> generatePdf(@RequestParam String courseTag) {
+//        String verificationCode = RandomStringUtils.random(25, true, true);
         try {
 //            certificateService.generatePdfFromHtml(certificateService.parseThymeleafTemplate(verificationCode),
 //                    verificationCode, null, null);
-            String fileName = certificateService.parseThymeleafTemplate(verificationCode, null);
+//            String fileName = certificateService.parseThymeleafTemplate(verificationCode, null);
+            String fileName = certificateService.generatePdfCertificate("dolgov.v@qazdevelop.com", courseTag);
             return new ResponseEntity<>("Certificate created successfully! Certificate file name: " + fileName,
                     HttpStatus.CREATED);
         } catch (Exception e) {

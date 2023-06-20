@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <style th:inline="text">
+        @page {
+            size: 1920px 1440px;
+            /*border: 0px;*/
+            /*margin: 0px;         !*Если белые рамки вокруг изображения рамки не нужны*!*/
+            /*padding: 0px;*/
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url(http://192.168.8.208/files/cert_templates/java_template_bg.jpg);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+            box-sizing: border-box;
+        }
+
+        .company-name {
+            color: #D9AF58;
+            font-style: italic;
+            font-size: 70px;
+            font-weight: 100;
+            position: absolute;
+            margin-left: auto;
+            margin-right: auto;
+            left: 0;
+            right: 0;
+            text-align: center;
+            margin-top: 5.5%;
+        }
+
+        .student-name {
+            color: #D9AF58;
+            font-family: "Times New Roman", Times, serif;
+            font-size: 70px;
+            font-weight: 100;
+            position: absolute;
+            margin-left: auto;
+            margin-right: auto;
+            left: 0;
+            right: 0;
+            text-align: center;
+            margin-top: 31%;
+        }
+
+        .course-completing {
+            color: #D9AF58;
+            font-family: "Times New Roman", Times, serif;
+            font-weight: 100;
+            font-size: 51px;
+            position: absolute;
+            margin-left: auto;
+            margin-right: auto;
+            left: 0;
+            right: 0;
+            text-align: center;
+            margin-top: 36%;
+        }
+
+        .course-description {
+            color: #D9AF58;
+            font-family: "Times New Roman", Times, serif;
+            font-size: 50px;
+            font-weight: 100;
+            position: absolute;
+            margin-left: auto;
+            margin-right: auto;
+            left: 0;
+            right: 0;
+            text-align: center;
+            margin-top: 40%;
+        }
+
+        .mentor-name {
+            color: #D9AF58;
+            font-family: "Times New Roman", Times, serif;
+            font-size: 30px;
+            font-weight: 100;
+            position: absolute;
+            margin-left: auto;
+            margin-right: auto;
+            left: 0;
+            right: 0;
+            text-align: center;
+            margin-top: 44%;
+        }
+
+        .verification-code {
+            color: #D9AF58;
+            font-size: 25px;
+            font-weight: 100;
+            position: absolute;
+            margin-left: auto;
+            margin-right: auto;
+            left: 0;
+            right: 0;
+            text-align: center;
+            margin-top: 46%;
+        }
+
+        .issued-date {
+            text-align: left;
+            color: #D9AF58;
+            font-size: 50px;
+            font-weight: 100;
+            position: absolute;
+            margin-top: 55%;
+            left: 21.1%;
+        }
+
+        .signature {
+            text-align: left;
+            color: #D9AF58;
+            font-size: 50px;
+            font-weight: 100;
+            position: absolute;
+            margin-top: 55%;
+            right: 21.5%;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <div class="company-name">
+        <span th:text="${company_name}"></span>
+    </div>
+    <div class="student-name">
+        <span th:text="${student_name}"></span>
+    </div>
+    <div class="course-completing">
+        <span>has successfully completing course</span>
+    </div>
+    <div class="course-description">
+        <u th:text="${course_name}"></u>
+    </div>
+    <div class="mentor-name">
+        Taught by <span th:text="${mentor_name}"></span>
+    </div>
+    <div class="verification-code">
+        Код проверки: <span th:text="${verification_code}"></span>
+    </div>
+    <div>
+        <div class="issued-date">
+            <span th:text="${issued_date}"></span>
+        </div>
+        <div class="signature">
+            <span th:text="'Antonov S.'"></span>
+        </div>
+    </div>
+</div>
+</body>
+</html>

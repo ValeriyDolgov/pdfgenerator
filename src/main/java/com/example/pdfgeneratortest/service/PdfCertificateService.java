@@ -7,6 +7,7 @@ import com.example.pdfgeneratortest.model.User;
 import com.example.pdfgeneratortest.service.utils.TransliterateUtil;
 import com.lowagie.text.DocumentException;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
@@ -23,10 +24,60 @@ import java.time.LocalDate;
 
 @Service
 @RequiredArgsConstructor
-public class CertificateService {
+public class PdfCertificateService {
     private final TransliterateUtil transliterateUtil;
 
-    public String parseThymeleafTemplate(String verificationCode, Long certificateId) {
+    public String generatePdfCertificate(String auth, String courseTag){
+//        while(certificateRepository.findByVerificationCode(verificationCode) != null) {
+//            String verificationCode = RandomStringUtils.random(25, true, true);
+//        }
+        String verificationCode = RandomStringUtils.random(25, true, true);
+        return this.chooseTemplateForPdfByCourse(verificationCode, 54L, courseTag);
+    }
+
+    public String chooseTemplateForPdfByCourse(String verificationCode, Long certificateId, String courseTag) {
+        Certificate certificate;
+        User student;
+        User mentor;
+        Course course;
+        switch (courseTag){
+            case "Java":
+                student = User.builder()
+                        .surname("Shalera").name("Valera").build();
+                mentor = User.builder()
+                        .surname("Light of Java").name("Kuanish").position("Senior Java Developer").build();
+                course = Course.builder()
+                        .mentor(mentor)
+                        .name("Java Developer for 3 weeks").build();
+                certificate = Certificate.builder()
+                        .id(certificateId)
+                        .course(course)
+                        .student(student)
+                        .verificationCode(verificationCode)
+                        .issuedDate(LocalDate.now())
+                        .build();
+                return parseThymeleafTemplate(verificationCode, certificateId, courseTag, certificate);
+            case "JavaScript":
+                student = User.builder()
+                        .surname("ProtoMISHA").name("Илюха").build();
+                mentor = User.builder()
+                        .surname("\"Lisiy Cherep\"").name("Максим").position("Frontend Developer").build();
+                course = Course.builder()
+                        .mentor(mentor)
+                        .name("Я тугой манкикодер").build();
+                certificate = Certificate.builder()
+                        .id(certificateId)
+                        .course(course)
+                        .student(student)
+                        .verificationCode(verificationCode)
+                        .issuedDate(LocalDate.now())
+                        .build();
+                return parseThymeleafTemplate(verificationCode, certificateId, courseTag, certificate);
+        }
+        return "No such course";
+    }
+
+    public String parseThymeleafTemplate(String verificationCode, Long certificateId, String courseTag, Certificate certificate) {
         ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
         templateResolver.setSuffix(".html");
         templateResolver.setTemplateMode(TemplateMode.HTML);
@@ -34,34 +85,17 @@ public class CertificateService {
         TemplateEngine templateEngine = new SpringTemplateEngine();
         templateEngine.setTemplateResolver(templateResolver);
 
-        User student = User.builder()
-                .surname("Shalera").name("Valera").build();
-        User mentor = User.builder()
-                .surname("Light of Java").name("Kuanish").position("Senior Java Developer").build();
-        Course course = Course.builder()
-                .mentor(mentor)
-                .name("Java Developer for 3 weeks").build();
-//        while(certificateRepository.findByVerificationCode(verificationCode) != null) {
-//            verificationCode = RandomStringUtils.random(25, true, true);
-//        }
 
-        Certificate certificate = Certificate.builder()
-                .id(54L)
-                .course(course)
-                .student(student)
-                .verificationCode(verificationCode)
-                .issuedDate(LocalDate.now())
-                .build();
 //        Certificate certificate = certificateRepository.findById(certificateId);
         Context context = new Context();
-        context.setVariable("company_name", "qazdev"); // "to" - variable in Thymeleaf, "Qazdevelop" - inserted value
+        context.setVariable("company_name", "qazdev"); // "to" - variable in Thymeleaf, "qazdev" - inserted value
         context.setVariable("student_name", certificate.getStudent().getSurname() + " " + certificate.getStudent().getName());
         context.setVariable("course_name", certificate.getCourse().getName());
         context.setVariable("mentor_name", certificate.getCourse().getMentor().getSurname() + " " + certificate.getCourse().getMentor().getName());
         context.setVariable("issued_date", certificate.getIssuedDate());
         context.setVariable("verification_code", certificate.getVerificationCode());
-        String generatedFileName = this.generatePdfFromHtml(templateEngine.process("pdf_cert_temp", context),
-                "Java", certificate);
+        String generatedFileName = this.generatePdfFromHtml(templateEngine.process(courseTag.toLowerCase() + "_pdf_cert_temp", context),
+                courseTag, certificate);
         certificate.setFileName(generatedFileName);
         return generatedFileName;
     }
@@ -117,7 +151,5 @@ public class CertificateService {
         return fileName;
     }
 
-    public void selectNameOfGeneratingPdf() {
 
-    }
 }
