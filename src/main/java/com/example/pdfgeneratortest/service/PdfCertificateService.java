@@ -6,6 +6,7 @@ import com.example.pdfgeneratortest.model.Course;
 import com.example.pdfgeneratortest.model.User;
 import com.example.pdfgeneratortest.service.utils.TransliterateUtil;
 import com.lowagie.text.DocumentException;
+import com.lowagie.text.pdf.BaseFont;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Service;
@@ -27,20 +28,21 @@ import java.time.LocalDate;
 public class PdfCertificateService {
     private final TransliterateUtil transliterateUtil;
 
-    public String generatePdfCertificate(String auth, String courseTag){
+    public String generatePdfCertificate(String auth, String courseTag) {
 //        while(certificateRepository.findByVerificationCode(verificationCode) != null) {
 //            String verificationCode = RandomStringUtils.random(25, true, true);
 //        }
-        String verificationCode = RandomStringUtils.random(25, true, true);
+        String verificationCode = RandomStringUtils.random(10, true, true);
         return this.chooseTemplateForPdfByCourse(verificationCode, 54L, courseTag);
     }
 
     public String chooseTemplateForPdfByCourse(String verificationCode, Long certificateId, String courseTag) {
+        //        Certificate certificate = certificateRepository.findById(certificateId);
         Certificate certificate;
         User student;
         User mentor;
         Course course;
-        switch (courseTag){
+        switch (courseTag) {
             case "Java":
                 student = User.builder()
                         .surname("Shalera").name("Valera").build();
@@ -74,7 +76,7 @@ public class PdfCertificateService {
                         .build();
                 return parseThymeleafTemplate(verificationCode, certificateId, courseTag, certificate);
         }
-        return "No such course";
+        return null;
     }
 
     public String parseThymeleafTemplate(String verificationCode, Long certificateId, String courseTag, Certificate certificate) {
@@ -85,8 +87,6 @@ public class PdfCertificateService {
         TemplateEngine templateEngine = new SpringTemplateEngine();
         templateEngine.setTemplateResolver(templateResolver);
 
-
-//        Certificate certificate = certificateRepository.findById(certificateId);
         Context context = new Context();
         context.setVariable("company_name", "qazdev"); // "to" - variable in Thymeleaf, "qazdev" - inserted value
         context.setVariable("student_name", certificate.getStudent().getSurname() + " " + certificate.getStudent().getName());
@@ -138,8 +138,10 @@ public class PdfCertificateService {
                 certificate.getIssuedDate().toString() + "_" + certificate.getId() +
                 CertStrings.CERT_EXTENSION;
         String outputFolder = CertStrings.PATH_TO_PDF_CERTS + File.separator + fileName;
+        ITextRenderer renderer = new ITextRenderer();
         try (OutputStream outputStream = new FileOutputStream(outputFolder)) {
-            ITextRenderer renderer = new ITextRenderer();
+            renderer.getFontResolver().addFont("font/times-new-roman-cyr/timesnrcyrmt.ttf", BaseFont.IDENTITY_H,
+                    BaseFont.NOT_EMBEDDED); // Разместить на сервере и прописать этот путь сюды
             renderer.setDocumentFromString(html);
             renderer.layout();
             renderer.createPDF(outputStream);
@@ -150,6 +152,4 @@ public class PdfCertificateService {
         }
         return fileName;
     }
-
-
 }

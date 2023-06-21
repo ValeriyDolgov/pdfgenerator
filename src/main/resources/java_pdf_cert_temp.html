@@ -9,7 +9,7 @@
         }
 
         body {
-            font-family: Arial, sans-serif;
+            font-family: "Times New Roman Cyr", Times, serif;
             background-image: url(http://192.168.8.208/files/cert_templates/java_template_bg.jpg);
             background-size: cover;
             background-position: center;
@@ -37,7 +37,6 @@
 
         .student-name {
             color: #D9AF58;
-            font-family: "Times New Roman", Times, serif;
             font-size: 70px;
             font-weight: 100;
             position: absolute;
@@ -46,12 +45,11 @@
             left: 0;
             right: 0;
             text-align: center;
-            margin-top: 31%;
+            margin-top: 31.5%;
         }
 
         .course-completing {
             color: #D9AF58;
-            font-family: "Times New Roman", Times, serif;
             font-weight: 100;
             font-size: 51px;
             position: absolute;
@@ -65,7 +63,6 @@
 
         .course-description {
             color: #D9AF58;
-            font-family: "Times New Roman", Times, serif;
             font-size: 50px;
             font-weight: 100;
             position: absolute;
@@ -79,7 +76,6 @@
 
         .mentor-name {
             color: #D9AF58;
-            font-family: "Times New Roman", Times, serif;
             font-size: 30px;
             font-weight: 100;
             position: absolute;
@@ -140,10 +136,10 @@
         <u th:text="${course_name}"></u>
     </div>
     <div class="mentor-name">
-        Taught by <span th:text="${mentor_name}"></span>
+        Mentor: <span th:text="${mentor_name}"></span>
     </div>
     <div class="verification-code">
-        Verification code: <span th:text="${verification_code}"></span>
+        Serial code: <span th:text="${verification_code}"></span>
     </div>
     <div>
         <div class="issued-date">

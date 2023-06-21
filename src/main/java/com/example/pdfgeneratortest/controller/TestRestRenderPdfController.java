@@ -1,5 +1,6 @@
 package com.example.pdfgeneratortest.controller;
 
+import com.example.pdfgeneratortest.constants.CertStrings;
 import com.example.pdfgeneratortest.controller.dto.AppError;
 import com.example.pdfgeneratortest.service.PdfCertificateService;
 import lombok.RequiredArgsConstructor;
@@ -19,12 +20,11 @@ public class TestRestRenderPdfController {
     @GetMapping("/generate")
     // скорее всего из URI получать имя курса, далее делать поиск по нему и по getAuthentication
     public ResponseEntity<?> generatePdf(@RequestParam String courseTag) {
-//        String verificationCode = RandomStringUtils.random(25, true, true);
         try {
-//            certificateService.generatePdfFromHtml(certificateService.parseThymeleafTemplate(verificationCode),
-//                    verificationCode, null, null);
-//            String fileName = certificateService.parseThymeleafTemplate(verificationCode, null);
             String fileName = certificateService.generatePdfCertificate("dolgov.v@qazdevelop.com", courseTag);
+            if (fileName == null) {
+                return new ResponseEntity<>(CertStrings.COURSE_NOT_FOUND + ": " + courseTag, HttpStatus.NOT_FOUND);
+            }
             return new ResponseEntity<>("Certificate created successfully! Certificate file name: " + fileName,
                     HttpStatus.CREATED);
         } catch (Exception e) {
@@ -34,7 +34,7 @@ public class TestRestRenderPdfController {
         }
     }
 //      to prod
-//    @PostMapping("/check/{validationCode}") // М.б. доступно всем
+//    @PostMapping("/check/{serialCode}") // М.б. доступно всем
 //    public ResponseEntity<?> checkCertificateByValidationCode(@PathVariable String validationCode) {
 //        try {
 //            Certificate certificate = certificateService.getByValidationCode();
